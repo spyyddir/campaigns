@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0; }
@@ -34,10 +35,37 @@ nav#main-nav {
       width: 230px;
       padding: 10px;
       border-top: 1px solid #111; }
+      nav#main-nav #sections li.section-expanded h2 {
+        color: #dfdfdf; }
+        nav#main-nav #sections li.section-expanded h2 span {
+          background: #dfdfdf; }
+      nav#main-nav #sections li .sub-sections {
+        float: left;
+        width: 205px;
+        list-style-type: circle !important;
+        color: #363;
+        padding-left: 35px;
+        border-bottom: none; }
+        nav#main-nav #sections li .sub-sections li {
+          padding: 2px !important;
+          border-top: none; }
+          nav#main-nav #sections li .sub-sections li a {
+            font-family: "Cochin";
+            color: #111;
+            text-decoration: none;
+            font-size: 18px; }
+            nav#main-nav #sections li .sub-sections li a.selected {
+              color: #dfdfdf;
+              font-weight: bold;
+              letter-spacing: 2px; }
+          nav#main-nav #sections li .sub-sections li::before {
+            font-weight: bold;
+            content: "⦁ "; }
       nav#main-nav #sections li h2 {
-        font-family: "Cochin"; }
+        font-family: "Cochin";
+        color: #111; }
         nav#main-nav #sections li h2 span {
-          background: #fff;
+          background: #999;
           display: block;
           line-height: 0.8;
           -webkit-border-radius: 10px;

@@ -36,10 +36,49 @@ nav#main-nav {
       width: $sidebar_width - 20px;
       padding: 10px;
       border-top: 1px solid #111;
+
+      &.section-expanded {
+        h2 {
+          color: #dfdfdf;
+          span {
+            background: #dfdfdf;
+          }
+        }
+      }
+
+      .sub-sections {
+        float: left;
+        width: $sidebar_width - 20px - 25px;
+        list-style-type:circle !important;
+        color: #363;
+        padding-left: 35px;
+        border-bottom: none;
+        li {
+          padding: 2px !important;
+          border-top: none;
+          a {
+            font-family: "Cochin";
+            color: #111;
+            text-decoration: none;
+            font-size: 18px;
+            &.selected {
+              color: #dfdfdf;
+              font-weight: bold;
+              letter-spacing: 2px;
+            }
+          }
+          &::before {
+            font-weight: bold;
+            content: "⦁ ";
+          }
+        }
+      }
+
       h2 {
         font-family: "Cochin";
+        color: #111;
         span {
-          background: #fff;
+          background: #999;
           display: block;
           line-height: 0.8;
           -webkit-border-radius: 10px;
