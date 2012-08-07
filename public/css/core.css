@@ -39,7 +39,10 @@ nav#main-nav {
         color: #dfdfdf; }
         nav#main-nav #sections li.section-expanded h2 span {
           background: #dfdfdf; }
+      nav#main-nav #sections li.section-expanded .sub-sections {
+        display: block; }
       nav#main-nav #sections li .sub-sections {
+        display: none;
         float: left;
         width: 205px;
         list-style-type: circle !important;

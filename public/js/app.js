@@ -1,6 +1,7 @@
 (function(window) {
 	window.SteamPunk = {
-		Views: {}
+		Views: {},
+		Models: {}
 	};
 
 	SteamPunk.Views.Campaign = Backbone.View.extend({
@@ -22,12 +23,46 @@
 	});
 
 	SteamPunk.Views.Nav = Backbone.View.extend({
+		events: {
+			"click .section" : "selectSection"
+		},
+
 		template: function(json) {
-			return '<div id="current-game">' + json.name + '</div> <ul id="sections"> <li class="section section-expanded"> <h2> <span>G</span> <strong>Geography</strong> </h2> <ul class="sub-sections"> <li><a href="#campaigns/1/pages/1" class="selected">The City</a></li> <li><a href="#campaigns/1/pages/2">Districts</a></li> <li><a href="#campaigns/1/pages/3">Watches</a></li> <li><a href="#campaigns/1/pages/4">The Chasm</a></li> </ul> </li> <li class="section"> <h2> <span>P</span> <strong>Power</strong> </h2> </li> <li class="section"> <h2> <span>C</span> <strong>Characters</strong> </h2> </li> </ul>';
+			return Mustache.render( $("#templates-nav").html(), json );
 		},
 
 		render: function() {
 			this.$el.html( this.template(this.model.toJSON()) );
+			_.each(this.model.get("sections"), function(section) {
+				var placeholder = this.$("[data-section=" + section + "]");
+				new SteamPunk.Views.NavSection({
+					el: placeholder,
+					model: this.model,
+					section: section
+				}).render();
+			}, this);
+		},
+
+		selectSection: function(e) {
+			e.preventDefault();
+			this.$(".section").removeClass("section-expanded");
+			var $t = $(e.target).closest(".section");
+			$t.addClass("section-expanded");
+		}
+	});
+
+	SteamPunk.Views.NavSection = Backbone.View.extend({
+		template: function(json) {
+			return Mustache.render($("#templates-nav-section").html(), json);
+		},
+
+		render: function() {
+			window.test = this.model;
+			this.$el.html(this.template({
+				first_letter: this.options.section.slice(0, 1),
+				name: this.options.section,
+				pages: this.model.contentForSection(this.options.section)
+			}));
 		}
 	});
 
@@ -41,11 +76,34 @@
 		}
 	});
 
+	SteamPunk.Models.Campaign = Backbone.Model.extend({
+		defaults: {
+			sections: [
+				"World",
+				"Characters",
+				"Story"
+			]
+		},
+
+		contentForSection: function(section) {
+			var attempt = section.toLowerCase() + "_pages";
+			return this.get(attempt);
+		}
+	});
+
+	SteamPunk.Models.Page = Backbone.Model.extend({
+		fetch: function() {
+			this.set("name", "Something");
+			this.set("content_html", "<p>woo!</p>");
+			this.trigger("update");
+		}
+	});
+
 	SteamPunk.Router = Backbone.Router.extend({
 		routes: {
 			"": "intro",
 			"campaigns/:id": "campaigns",
-			"campaigns/:campaign_id/pages/:id": "pages"
+			"pages/:id": "pages"
 		},
 
 		initialize: function() {
@@ -57,24 +115,34 @@
 		},
 
 		campaigns: function(id) {
-			var model = new Backbone.Model({name: id});
+			var model = new SteamPunk.Models.Campaign({
+				name: "SP",
+				world_pages: [
+					{id: 1, name: "The City"},
+					{id: 2, name: "Districts"},
+					{id: 3, name: "Watches"},
+					{id: 4, name: "The Chasm"}
+				]
+			});
 			this.currentCampaign = id;
 			this.currentView = new SteamPunk.Views.Campaign({
-				el: "body",
+				el: "#app",
 				model: model
 			});
 			this.currentView.render();
 		},
 
-		pages: function(campaign_id, id) {
+		pages: function(id) {
 			if (campaign_id != this.currentCampaign) this.campaigns(campaign_id);
 
-			var page = new Backbone.Model({name: "Page " + id});
+			var page = new SteamPunk.Models.Page({id: id});
 
 			new SteamPunk.Views.Page({
 				el: this.currentView.getContentArea(),
 				model: page
 			}).render();
+
+			page.fetch();
 		}
 	});
 })(window);
