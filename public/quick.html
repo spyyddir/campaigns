@@ -21,15 +21,21 @@
     .campaigns-list-view nav a { padding: 10px 20px; background: #3b3; color: #fff; display: block; font-size: 16px; text-transform: uppercase; font-family: "Gill Sans"; text-decoration: none; margin-bottom: 2px; }
     .campaigns-list-view nav a:hover { background-color: #5d5; }
 
+    .campaign-view aside h1 { width: 160px; text-align: center; background: #fff; color: #4c4; border-radius: 5px; margin: 20px auto 10px; font-size: 80px; padding: 10px 0; }
+    .campaign-view aside h2 { width: 160px; margin: auto; text-align: center; color: #fff; }
+
     .campaign-view aside.campaign-nav { position: absolute; top: 0; left: 0; bottom: 0; width: 200px; background: #4c4; box-shadow: 1px 0 10px rgba(0,0,0,0.5); z-index: 10; }
-    .campaign-view aside.campaign-nav h1 { width: 160px; text-align: center; background: #fff; color: #4c4; border-radius: 5px; margin: 20px auto 10px; font-size: 80px; padding: 10px 0; }
-    .campaign-view aside.campaign-nav h2 { width: 160px; margin: auto; text-align: center; color: #fff; }
+    .campaign-view aside.campaign-nav h1 { background: #fff; color: #4c4; }
+    .campaign-view aside.campaign-nav h2 {  }
     .campaign-view aside.campaign-nav .back { position: absolute; bottom: 0; left: 0; width: 160px; padding: 10px 20px; border-top: 1px solid #fff; text-decoration: none; color: #fff; text-transform: uppercase }
     .campaign-view aside.campaign-nav nav { margin: 10px 19px; background: #3b3; border-radius: 5px; border: 1px solid #1a1; }
     .campaign-view aside.campaign-nav nav a { display: block; color: #fff; padding: 5px; border-top: 1px solid #1a1; }
     .campaign-view aside.campaign-nav nav a:first-child { border-top: 0; }
+    .campaign-view aside.campaign-nav nav nav.sub-nav { margin: 0; border: 0; background: #1a1; border-radius: 0; }
+    .campaign-view aside.campaign-nav nav nav.sub-nav a { font-size: 14px; }
 
     .campaign-view aside.sub-nav { position: absolute; top: 0; bottom: 0; left: 200px; width: 160px; background: #2a2; z-index: 5; box-shadow: 1px 0 10px rgba(0,0,0,0.8); border-right: 1px solid #191; }
+    .campaign-view aside.sub-nav h1 { width: 120px; background: #fff; color: #4c4; }
     </style>
     <body>
       <div id="js-views" style="display:none;">
@@ -70,15 +76,45 @@
 
             <nav>
               <a href="#" class="world">World</a>
+              <nav class="sub-nav world">
+                <a href="#" class="world-page">The City</a>
+                <a href="#" class="world-page">The Watches</a>
+                <a href="#" class="world-page">The Chasm</a>
+              </nav>
               <a href="#" class="characters">Characters</a>
+              <nav class="sub-nav characters">
+                <a href="#" class="characters-page">Ms. Trixy</a>
+                <a href="#" class="characters-page">Roger</a>
+                <a href="#" class="characters-page">Dan</a>
+                <a href="#" class="characters-page">Astrid</a>
+              </nav>
               <a href="#" class="story">Story</a>
+              <nav class="sub-nav story">
+                <a href="#" class="story-page">The Green Smoke</a>
+                <a href="#" class="story-page">A Mysterious Box</a>
+                <a href="#" class="story-page">Sewer Bear</a>
+              </nav>
             </nav>
 
             <a href="#" class="back">&laquo; Back</a>
           </aside>
 
-          <aside class="sub-nav">
+          <!--
+          <aside class="sub-nav world">
+            <h1>W</h1>
+            <h2>World</h2>
           </aside>
+
+          <aside class="sub-nav characters">
+            <h1>C</h1>
+            <h2>Characters</h2>
+          </aside>
+
+          <aside class="sub-nav story">
+            <h1>S</h1>
+            <h2>Story</h2>
+          </aside>
+          -->
         </script>
       </div>
 

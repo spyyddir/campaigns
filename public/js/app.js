@@ -59,17 +59,39 @@ CampaignView = Backbone.View.extend({
 	className: "campaign-view",
 
 	events: {
-		"click .back" : "back"
+		"click .back" : "back",
+		"click nav a.world" : "showWorld",
+		"click nav a.story" : "showStory",
+		"click nav a.characters" : "showCharacters"
 	},
 
 	render: function() {
 		this.$el.html( this.template(this.model.toJSON()) );
+		this.showWorld({preventDefault: function() {}});
 	},
 
 	back: function(e) {
 		e.preventDefault();
 		window.campaigns_router.navigate("/", {trigger: true});
-	}
+	},
+
+	showWorld: function(e) {
+		e.preventDefault();
+		this.$(".sub-nav").hide();
+		this.$(".sub-nav.world").show();
+	},
+
+	showStory: function(e) {
+		e.preventDefault();
+		this.$(".sub-nav").hide();
+		this.$(".sub-nav.story").show();
+	},
+
+	showCharacters: function(e) {
+		e.preventDefault();
+		this.$(".sub-nav").hide();
+		this.$(".sub-nav.characters").show();
+	},
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
